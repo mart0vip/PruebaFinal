@@ -5,8 +5,36 @@
 #include <cstdlib>
 using namespace std;
 
+
+
+
+
+
+void generarArchivo (char* nombreArchivo){
+
+
+  FILE * novedades = fopen("novedades.dat","wb+");
+
+  Archivo reg[15] = {{1052,1383073,1,5},{1052,1383073,1,6},{1052,1383073,2,7},
+    {1052,1383073,3,1},{1052,1383073,3,2},{1053,1383072,1,1},{1053,1383072,1,6},
+    {1053,1383072,2,7},{1053,1383072,3,6},{1053,1383072,4,3},{1053,1383072,4,6},
+    {1053,1403050,1,8},{1053,1403050,2,10},{1053,1403050,3,9},{1053,1403050,4,8}
+  };
+
+  for(int i =0; i<15; i++){
+	  fwrite(&reg[i],sizeof(Archivo),1,novedades);
+  }
+
+  fclose(novedades);
+
+}
+
+
+
+
+
 void cargarArchivo(char nombreArchivo[15]) {
-    archivo registro;
+    Archivo registro;
     int cuenta = 0;
 
     FILE * novedades = fopen(nombreArchivo, "wb+");
@@ -22,7 +50,7 @@ void cargarArchivo(char nombreArchivo[15]) {
         cout << "ingrese nota." << endl;
         cin >> registro.nota;
 
-        fwrite(& registro, sizeof(archivo), 1, novedades);
+        fwrite(& registro, sizeof(Archivo), 1, novedades);
         cuenta++;
 
         cout << "ingrese Id de curso (0 para finalizar)." << endl;
@@ -36,11 +64,11 @@ void cargarArchivo(char nombreArchivo[15]) {
 
 void procesarNovedades(char * nombreArchivo, Curso * cursos) {
 
-    archivo registro;
+    Archivo registro;
 
     FILE * novedades = fopen(nombreArchivo, "rb");
 
-    fread(& registro, sizeof(archivo), 1, novedades);
+    fread(& registro, sizeof(Archivo), 1, novedades);
 
     while (!feof(novedades)) {
 
@@ -49,7 +77,7 @@ void procesarNovedades(char * nombreArchivo, Curso * cursos) {
         cout << registro.parcial << endl << endl;
         cout << registro.nota << endl;
 
-        fread(& registro, sizeof(archivo), 1, novedades);
+        fread(& registro, sizeof(Archivo), 1, novedades);
 
     }
 
@@ -57,12 +85,21 @@ void procesarNovedades(char * nombreArchivo, Curso * cursos) {
 
 }
 
+
+void AgregarNota(Curso* cursos, Curso curso, Estudiante estudiante, int parcial, int nota){
+
+
+}
+
+
+
 int main() {
 
     Curso * cursos = NULL;
     char * nombreArchivo = "novedades.dat";
 
-    cargarArchivo(nombreArchivo);
+    //cargarArchivo(nombreArchivo);
+    //generarArchivo(nombreArchivo);
 
     procesarNovedades(nombreArchivo, cursos);
 

@@ -27,7 +27,7 @@ struct Curso{
   Curso* sgte;
 };
 
-struct archivo {
+struct Archivo {
   int idCurso;
   int idEst;
   int parcial;
